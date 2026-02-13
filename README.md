@@ -451,26 +451,30 @@ predictions = model.predict(scaled)
 4. **Real-time Retraining**: Incorporate feedback from actual recommendations
 5. **Regional Adaptation**: Create region-specific models
 
-## License & Attribution
+## Contributing
 
-- **Model**: Educational and research use
-- **Dataset**: Kaggle open license
-- **Code**: Available for modification and redistribution
+This is a **college project** focused on machine learning and agriculture technology. Contributions are welcome!
 
-## Support & Contact
+### How to Contribute
+1. **Fork** the repository
+2. **Create a feature branch** (`git checkout -b feature/improvement`)
+3. **Make your changes** and test thoroughly
+4. **Commit** with clear messages (`git commit -m 'Add feature'`)
+5. **Push** to your branch (`git push origin feature/improvement`)
+6. **Create a Pull Request** with description of changes
 
-For issues or questions:
-1. Check troubleshooting section above
-2. Review model configuration files
-3. Run validation cells in notebook
-4. Verify input data format and ranges
+### Areas for Contribution
+- Improving model accuracy with new data
+- Adding new crop varieties
+- Enhancing the web interface in `public/index.html`
+- Optimizing ONNX model performance
+- Adding support for more regions/climates
+- Writing tests and documentation
+- Fixing bugs or improving error handling
 
----
-
-**Crop AI** - Smart crop recommendation using ML & real-time data  
-**Status**: Production Ready ✅  
-**Model Accuracy**: 98.56%  
-**Deployed With**: Express.js + ONNX Runtime  
-**Training Data**: 6,600 samples (2,200 real + 4,400 synthetic)  
-**Supported Crops**: 22 varieties  
-**Last Updated**: February 13, 2026
+### Development Guidelines
+- Follow existing code style
+- Test changes before submitting
+- Document significant changes
+- Keep commits atomic and focused
+- Write clear commit messages
