@@ -1,0 +1,9 @@
+node_modules
+venv
+model/__pycache__/
+model/*venv
+model/start.sh
+backup
+model/main.py
+model/requirements.txt
+*.pyc

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Crop AI</title>
+
+<style>
+body{
+  margin:0;
+  background:#000;
+  color:#fff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+}
+
+/* MAIN CARD */
+.card{
+  width:560px;
+  border:1px solid #fff3;
+  padding:32px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.03);
+  backdrop-filter: blur(8px);
+  animation:fadeUp .9s ease;
+}
+
+h1{text-align:center;margin-top:0}
+.subtitle{text-align:center;font-size:13px;margin-bottom:22px;opacity:.7}
+
+/* TABS */
+.tabs{
+  display:flex;
+  border:1px solid #fff3;
+  border-radius:12px;
+  overflow:hidden;
+  margin-bottom:18px;
+}
+.tab{
+  flex:1;
+  padding:12px;
+  cursor:pointer;
+  text-align:center;
+  transition:.3s;
+}
+.tab.active{
+  background:#fff;
+  color:#000;
+  font-weight:bold;
+}
+
+/* BUTTONS */
+button{
+  width:100%;
+  padding:12px;
+  background:#000;
+  color:#fff;
+  border:1px solid #fff3;
+  cursor:pointer;
+  margin-top:12px;
+  border-radius:10px;
+  transition:.3s;
+  font-family:inherit;
+}
+button:hover{
+  background:#fff;
+  color:#000;
+}
+
+/* INPUTS */
+input{
+  width:100%;
+  padding:11px;
+  margin:6px 0;
+  background:#000;
+  border:1px solid #fff3;
+  color:#fff;
+  border-radius:10px;
+  font-family:inherit;
+  transition:.25s;
+}
+input:focus{
+  outline:none;
+  border-color:#fff;
+}
+
+/* STATUS + RESULT */
+.status{text-align:center;margin-top:14px;font-size:13px;opacity:.8}
+
+.result{
+  display:none;
+  margin-top:16px;
+  animation:fadeUp .6s ease;
+}
+
+/* CROP CARD */
+.cropCard{
+  border:1px solid #fff3;
+  padding:20px;
+  margin-bottom:15px;
+  text-align:center;
+  border-radius:14px;
+}
+.cropName{font-size:26px;font-weight:bold}
+.cropSub{font-size:12px;margin-top:5px;opacity:.7}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.box{
+  border:1px solid #fff3;
+  padding:12px;
+  font-size:13px;
+  border-radius:10px;
+}
+
+/* SECTION FIX (no gap) */
+.section{
+  max-height:0;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(-10px);
+  transition:max-height .4s ease, opacity .3s ease, transform .3s ease;
+}
+.section.active{
+  max-height:500px;
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* GLOBAL FADE */
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(25px)}
+  to{opacity:1; transform:translateY(0)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>🌾 CROP AI</h1>
+  <div class="subtitle">smart crop recommendation via soil & climate</div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('auto')">🌍 AUTO MODE</div>
+    <div class="tab" onclick="switchTab('manual')">✍️ MANUAL MODE</div>
+  </div>
+
+  <div id="autoSection" class="section active">
+    <button onclick="autoMode()">Use GPS & Predict</button>
+  </div>
+
+  <div id="manualSection" class="section">
+    <input id="N" placeholder="Nitrogen (N)">
+    <input id="P" placeholder="Phosphorus (P)">
+    <input id="K" placeholder="Potassium (K)">
+    <input id="temp" placeholder="Temperature °C">
+    <input id="hum" placeholder="Humidity %">
+    <input id="ph" placeholder="pH">
+    <input id="rain" placeholder="Rainfall mm">
+    <button onclick="manualMode()">Predict Manually</button>
+  </div>
+
+  <div class="status" id="status"></div>
+
+  <div class="result" id="result">
+    <div id="cropCard"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+
+<script>
+const tabs=document.querySelectorAll(".tab");
+function switchTab(mode){
+  tabs.forEach(t=>t.classList.remove("active"));
+  event.target.classList.add("active");
+
+  const auto=document.getElementById("autoSection");
+  const manual=document.getElementById("manualSection");
+  auto.classList.remove("active");
+  manual.classList.remove("active");
+
+  setTimeout(()=>{
+    if(mode==="auto") auto.classList.add("active");
+    else manual.classList.add("active");
+  },100);
+}
+
+const emoji={
+rice:"🌾",maize:"🌽",jute:"🧵",cotton:"🧶",
+coconut:"🥥",papaya:"🍈",orange:"🍊",
+apple:"🍎",muskmelon:"🍈",watermelon:"🍉",
+grapes:"🍇",mango:"🥭",banana:"🍌",
+pomegranate:"🍎",lentil:"🫘",blackgram:"🫘",
+mungbean:"🫘",mothbeans:"🫘",pigeonpeas:"🫘",
+kidneybeans:"🫘",chickpea:"🧆",coffee:"☕"
+};
+
+const statusBox=document.getElementById("status");
+const resultBox=document.getElementById("result");
+const grid=document.getElementById("grid");
+const cropCard=document.getElementById("cropCard");
+
+function setStatus(msg){statusBox.innerText=msg;}
+
+function show(data){
+  resultBox.style.display="block";
+  const e=emoji[data.predicted_crop]||"🌱";
+
+  cropCard.innerHTML=`
+    <div class="cropCard">
+      <div class="cropName">${e} ${data.predicted_crop.toUpperCase()}</div>
+      <div class="cropSub">recommended crop based on soil & climate</div>
+    </div>`;
+
+  grid.innerHTML="";
+  Object.entries(data).forEach(([k,v])=>{
+    if(k==="predicted_crop") return;
+    grid.innerHTML+=`<div class="box"><b>${k}</b><br>${v.toFixed?v.toFixed(2):v}</div>`;
+  });
+}
+
+async function autoMode(){
+  setStatus("📍 requesting location...");
+  resultBox.style.display="none";
+
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    setStatus("🌱 fetching soil...");
+    setTimeout(()=>setStatus("🌦 fetching weather history..."),800);
+    setTimeout(()=>setStatus("🧠 running ML model..."),1600);
+
+    const res=await fetch("http://localhost:3000/predict-auto",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({lat:pos.coords.latitude,lon:pos.coords.longitude})
+    });
+
+    const data=await res.json();
+    setStatus("");
+    show(data);
+  });
+}
+
+async function manualMode(){
+  setStatus("🧠 running ML model...");
+  resultBox.style.display="none";
+
+  const payload={
+    N:+N.value,P:+P.value,K:+K.value,
+    temperature:+temp.value,humidity:+hum.value,
+    ph:+ph.value,rainfall:+rain.value
+  };
+
+  const res=await fetch("http://localhost:3000/predict-manual",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(payload)
+  });
+
+  const data=await res.json();
+  setStatus("");
+  show(data);
+}
+</script>
+
+</body>
+</html>
