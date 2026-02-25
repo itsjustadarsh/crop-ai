@@ -366,19 +366,24 @@ The ONNX serving strategy delivers up to 2,159× faster single inference and 827
 
 ## References
 
-[1] Acharya, N. et al. "Advancing crop recommendation system with supervised machine learning and explainable artificial intelligence." *Scientific Reports*, Nature, 2025. https://www.nature.com/articles/s41598-025-07003-8 · PMC: https://pmc.ncbi.nlm.nih.gov/articles/PMC12264067/
+[1] Neeraj Acharya et al. "Advancing crop recommendation system with supervised machine learning and explainable artificial intelligence." *Scientific Reports*, Nature, 2025.
+→ [doi.org/10.1038/s41598-025-07003-8](https://doi.org/10.1038/s41598-025-07003-8) · [PubMed Central (open access)](https://pmc.ncbi.nlm.nih.gov/articles/PMC12264067/) · [nature.com](https://www.nature.com/articles/s41598-025-07003-8)
 
-[2] Pande, A. et al. "Enhancing Agricultural Productivity: A Machine Learning Approach to Crop Recommendations." *Human-Centric Intelligent Systems*, Springer, Vol. 4, pp. 497–510, 2024. https://link.springer.com/article/10.1007/s44230-024-00081-3
+[2] Aboli Pande et al. "Enhancing Agricultural Productivity: A Machine Learning Approach to Crop Recommendations." *Human-Centric Intelligent Systems*, Springer, Vol. 4, pp. 497–510, 2024.
+→ [doi.org/10.1007/s44230-024-00081-3](https://doi.org/10.1007/s44230-024-00081-3) · [springer.com](https://link.springer.com/article/10.1007/s44230-024-00081-3)
 
-[3] Shams, M.Y., Gamel, S.A., Talaat, F.M. "Enhancing crop recommendation systems with explainable artificial intelligence: a study on agricultural decision-making." *Neural Computing and Applications*, Springer, Vol. 36, pp. 5695–5714, 2024. https://link.springer.com/article/10.1007/s00521-023-09391-2
+[3] Mohamed Y. Shams, Samah A. Gamel, Fatma M. Talaat. "Enhancing crop recommendation systems with explainable artificial intelligence: a study on agricultural decision-making." *Neural Computing and Applications*, Springer, Vol. 36, pp. 5695–5714, 2024.
+→ [doi.org/10.1007/s00521-023-09391-2](https://doi.org/10.1007/s00521-023-09391-2) · [springer.com](https://link.springer.com/article/10.1007/s00521-023-09391-2)
 
-[4] Singh, G., Sharma, S. "Enhancing precision agriculture through cloud based transformative crop recommendation model." *Scientific Reports*, Nature, 2025. https://www.nature.com/articles/s41598-025-93417-3 · PMC: https://pmc.ncbi.nlm.nih.gov/articles/PMC11914076/
+[4] Gurpreet Singh, Sachin Sharma. "Enhancing precision agriculture through cloud based transformative crop recommendation model." *Scientific Reports*, Nature, 2025.
+→ [doi.org/10.1038/s41598-025-93417-3](https://doi.org/10.1038/s41598-025-93417-3) · [PubMed Central (open access)](https://pmc.ncbi.nlm.nih.gov/articles/PMC11914076/) · [nature.com](https://www.nature.com/articles/s41598-025-93417-3)
 
-[5] Poggio, L. et al. "SoilGrids 2.0: producing soil information for the globe with quantified spatial uncertainty." *SOIL*, Vol. 7, pp. 217–240, 2021. https://soil.copernicus.org/articles/7/217/2021/
+[5] Laura Poggio et al. "SoilGrids 2.0: producing soil information for the globe with quantified spatial uncertainty." *SOIL*, Vol. 7, pp. 217–240, 2021.
+→ [doi.org/10.5194/soil-7-217-2021](https://doi.org/10.5194/soil-7-217-2021) · [open access (Copernicus)](https://soil.copernicus.org/articles/7/217/2021/)
 
-[6] Open-Meteo. "Open-Meteo — Free Weather API." https://open-meteo.com/en/features
+[6] Open-Meteo. "Open-Meteo — Free Weather API." → [open-meteo.com](https://open-meteo.com/en/features)
 
-[7] Ingle, A. "Crop Recommendation Dataset." Kaggle, 2020. https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset
+[7] Atharva Ingle. "Crop Recommendation Dataset." Kaggle, 2020. → [kaggle.com](https://www.kaggle.com/datasets/atharvaingle/crop-recommendation-dataset)
 
 ---
 
