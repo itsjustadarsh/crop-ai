@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crop AI</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #000;
+  color: #ededed;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 48px 24px 80px;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Main two-column layout ── */
+.layout {
+  width: 100%;
+  max-width: 1080px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  gap: 28px;
+  align-items: start;
+}
+
+.left-col  { min-width: 0; }
+
+.right-col {
+  position: sticky;
+  top: 40px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #222 transparent;
+}
+.right-col::-webkit-scrollbar { width: 4px; }
+.right-col::-webkit-scrollbar-track { background: transparent; }
+.right-col::-webkit-scrollbar-thumb { background: #222; border-radius: 4px; }
+
+/* ── Header ── */
+.header { margin-bottom: 32px; }
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.title {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -.04em;
+  color: #fff;
+  margin-bottom: 6px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* ── Segment tabs ── */
+.segments {
+  display: inline-flex;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  padding: 3px;
+  margin-bottom: 20px;
+  gap: 2px;
+}
+
+.seg {
+  padding: 6px 14px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #555;
+  transition: color .15s, background .15s;
+  user-select: none;
+  letter-spacing: -.01em;
+}
+
+.seg.active { background: #222; color: #ededed; }
+
+/* ── Panel ── */
+.panel {
+  background: #0d0d0d;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 12px;
+}
+
+/* ── Sections ── */
+.section { display: none; }
+.section.active { display: block; }
+
+/* ── Input grid ── */
+.input-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.field label {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+input[type=number], input[type=text] {
+  width: 100%;
+  background: #000;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #ededed;
+  padding: 9px 11px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color .15s;
+  -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button { -webkit-appearance: none; }
+input:focus { outline: none; border-color: rgba(255,255,255,0.22); }
+input::placeholder { color: #333; }
+
+/* ── Button ── */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  padding: 10px 16px;
+  margin-top: 16px;
+  background: #ededed;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: -.01em;
+  transition: opacity .15s, transform .1s;
+}
+.btn:hover { opacity: .88; }
+.btn:active { transform: scale(.99); }
+.btn:disabled { opacity: .35; cursor: not-allowed; transform: none; }
+
+/* ── Steps panel ── */
+.steps-panel {
+  display: none;
+  background: #0d0d0d;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 12px;
+}
+.steps-panel.visible { display: block; }
+
+.steps-heading {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #444;
+  margin-bottom: 14px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 13px;
+  color: #383838;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: color .2s;
+}
+.step:last-child { border-bottom: none; padding-bottom: 0; }
+.step:first-child { padding-top: 0; }
+
+.step.active { color: #ededed; }
+.step.done   { color: #484848; }
+
+.step-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #2a2a2a;
+}
+
+.spinner {
+  width: 13px;
+  height: 13px;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .55s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.check {
+  font-size: 11px;
+  color: #484848;
+  line-height: 1;
+}
+
+.step-sub {
+  margin-left: auto;
+  font-size: 11px;
+  color: #333;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.step.active .step-sub { color: #555; }
+.step.done   .step-sub { color: #333; }
+
+/* ── Result (left col) ── */
+.result-panel {
+  display: none;
+  animation: fadeUp .4s ease;
+}
+.result-panel.visible { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Crop card */
+.crop-card {
+  background: #0d0d0d;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 28px 20px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.crop-emoji { font-size: 40px; margin-bottom: 10px; }
+
+.crop-name {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.crop-label {
+  font-size: 12px;
+  color: #444;
+  margin-top: 5px;
+}
+
+/* Params grid */
+.params-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.param-box {
+  background: #0d0d0d;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 9px;
+  padding: 11px 10px;
+}
+
+.param-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  margin-bottom: 5px;
+}
+
+.param-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ccc;
+  font-family: ui-monospace, 'SF Mono', 'Fira Code', monospace;
+}
+
+/* ── Agent card (right col) ── */
+.agent-card {
+  background: #0d0d0d;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.agent-heading {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: #444;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.agent-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #444;
+}
+
+.agent-placeholder {
+  font-size: 13px;
+  color: #2d2d2d;
+  line-height: 1.7;
+  padding: 24px 0;
+  text-align: center;
+}
+
+.agent-text {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #777;
+}
+
+.agent-text p  { margin-bottom: 10px; }
+.agent-text p:last-child { margin-bottom: 0; }
+.agent-text strong { color: #aaa; font-weight: 600; }
+.agent-text h1, .agent-text h2, .agent-text h3 {
+  color: #ccc;
+  font-weight: 600;
+  letter-spacing: -.02em;
+  margin: 16px 0 6px;
+}
+.agent-text h1 { font-size: 15px; }
+.agent-text h2 { font-size: 14px; }
+.agent-text h3 { font-size: 13px; }
+.agent-text ul, .agent-text ol {
+  padding-left: 18px;
+  margin-bottom: 10px;
+}
+.agent-text li { margin-bottom: 4px; }
+.agent-text code {
+  font-family: ui-monospace, 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  background: rgba(255,255,255,0.06);
+  padding: 1px 5px;
+  border-radius: 4px;
+  color: #aaa;
+}
+.agent-text hr {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  margin: 14px 0;
+}
+
+/* ── Error ── */
+.error-msg {
+  display: none;
+  font-size: 13px;
+  color: #f55;
+  margin-top: 0;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255,80,80,0.2);
+  border-radius: 8px;
+  background: rgba(255,50,50,0.05);
+}
+.error-msg.visible { display: block; }
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  body { padding: 32px 16px 64px; }
+
+  .layout {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .right-col {
+    position: static;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  /* Hide right col on mobile when empty */
+  .right-col.empty { display: none; }
+
+  .params-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .title { font-size: 22px; }
+}
+
+@media (max-width: 400px) {
+  .input-grid { grid-template-columns: 1fr; }
+  .input-grid .field[style*="span 2"] { grid-column: span 1; }
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ── Left column ── -->
+  <div class="left-col">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="eyebrow">Agricultural Intelligence</div>
+      <h1 class="title">Crop AI</h1>
+      <p class="subtitle">AI agent that reads real soil &amp; climate data to recommend the right crop — and explains why.</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="segments">
+      <div class="seg active" onclick="switchTab('auto', this)">GPS Auto</div>
+      <div class="seg" onclick="switchTab('manual', this)">Manual Input</div>
+    </div>
+
+    <!-- Auto panel -->
+    <div id="autoSection" class="section active">
+      <div class="panel">
+        <div style="font-size:13px;color:#555;line-height:1.6">
+          Automatically fetches soil nutrients and weather data for your current GPS location, then runs the AI model to predict and explain the best crop.
+        </div>
+        <button class="btn" id="autoBtn" onclick="autoMode()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          Detect Location &amp; Predict
+        </button>
+      </div>
+    </div>
+
+    <!-- Manual panel -->
+    <div id="manualSection" class="section">
+      <div class="panel">
+        <div class="input-grid">
+          <div class="field"><label>Nitrogen</label><input id="N" type="number" placeholder="e.g. 90"></div>
+          <div class="field"><label>Phosphorus</label><input id="P" type="number" placeholder="e.g. 42"></div>
+          <div class="field"><label>Potassium</label><input id="K" type="number" placeholder="e.g. 43"></div>
+          <div class="field"><label>Temperature °C</label><input id="temp" type="number" placeholder="e.g. 20" step="0.1"></div>
+          <div class="field"><label>Humidity %</label><input id="hum" type="number" placeholder="e.g. 82"></div>
+          <div class="field"><label>Soil pH</label><input id="ph" type="number" placeholder="e.g. 6.5" step="0.1"></div>
+          <div class="field" style="grid-column:span 2">
+            <label>Rainfall mm (30-day)</label>
+            <input id="rain" type="number" placeholder="e.g. 200">
+          </div>
+        </div>
+        <button class="btn" id="manualBtn" onclick="manualMode()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          Predict Crop
+        </button>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div class="error-msg" id="errorMsg"></div>
+
+    <!-- Steps -->
+    <div class="steps-panel" id="stepsPanel">
+      <div class="steps-heading">Agentic pipeline</div>
+      <div id="stepList"></div>
+    </div>
+
+    <!-- Result: crop card + params -->
+    <div class="result-panel" id="resultPanel">
+      <div class="crop-card">
+        <div class="crop-emoji" id="cropEmoji"></div>
+        <div class="crop-name" id="cropName"></div>
+        <div class="crop-label">recommended crop based on soil &amp; climate analysis</div>
+      </div>
+      <div class="params-grid" id="paramsGrid"></div>
+    </div>
+
+  </div><!-- /left-col -->
+
+  <!-- ── Right column: AI Analysis ── -->
+  <div class="right-col empty" id="rightCol">
+    <div class="agent-card">
+      <div class="agent-heading">
+        <div class="agent-dot"></div>
+        AI Analysis &amp; Farming Advice
+      </div>
+      <div class="agent-placeholder" id="agentPlaceholder">
+        Run a prediction to see AI-generated agronomic analysis and farming advice here.
+      </div>
+      <div class="agent-text" id="agentText"></div>
+    </div>
+  </div><!-- /right-col -->
+
+</div><!-- /layout -->
+
+<script>
+const AUTO_STEPS = [
+  { id: 'location', label: 'Acquiring GPS coordinates',  sub: 'Browser Geolocation' },
+  { id: 'soil',     label: 'Analysing soil composition',  sub: 'Soil Analyzer Agent' },
+  { id: 'weather',  label: 'Reading climate conditions',  sub: 'Weather Analyst Agent' },
+  { id: 'predict',  label: 'Classifying optimal crop',    sub: 'Crop Predictor Agent' },
+  { id: 'analyze',  label: 'Generating field report',     sub: 'Insight Engine · Llama 3.3 70B' },
+];
+
+const MANUAL_STEPS = [
+  { id: 'predict', label: 'Classifying optimal crop',  sub: 'Crop Predictor Agent' },
+  { id: 'analyze', label: 'Generating field report',   sub: 'Insight Engine · Llama 3.3 70B' },
+];
+
+const EMOJI = {
+  rice:'🌾', maize:'🌽', jute:'🧵', cotton:'🧶', coconut:'🥥',
+  papaya:'🍈', orange:'🍊', apple:'🍎', muskmelon:'🍈', watermelon:'🍉',
+  grapes:'🍇', mango:'🥭', banana:'🍌', pomegranate:'🍎', lentil:'🫘',
+  blackgram:'🫘', mungbean:'🫘', mothbeans:'🫘', pigeonpeas:'🫘',
+  kidneybeans:'🫘', chickpea:'🧆', coffee:'☕',
+};
+
+const PARAM_LABELS = {
+  N:'Nitrogen', P:'Phosphorus', K:'Potassium',
+  temperature:'Temp °C', humidity:'Humidity %', ph:'pH', rainfall:'Rainfall mm',
+};
+
+let currentSteps = [];
+let stepStates   = {};
+
+/* ── tabs ── */
+function switchTab(mode, el) {
+  document.querySelectorAll('.seg').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('autoSection').classList.toggle('active', mode === 'auto');
+  document.getElementById('manualSection').classList.toggle('active', mode === 'manual');
+  resetUI();
+}
+
+/* ── ui helpers ── */
+function resetUI() {
+  document.getElementById('stepsPanel').classList.remove('visible');
+  document.getElementById('resultPanel').classList.remove('visible');
+  document.getElementById('errorMsg').classList.remove('visible');
+  document.getElementById('agentText').innerHTML = '';
+  document.getElementById('agentPlaceholder').style.display = '';
+  document.getElementById('rightCol').classList.add('empty');
+}
+
+function showError(msg) {
+  document.getElementById('errorMsg').textContent = msg;
+  document.getElementById('errorMsg').classList.add('visible');
+  setButtons(false);
+}
+
+function setButtons(disabled) {
+  document.getElementById('autoBtn').disabled   = disabled;
+  document.getElementById('manualBtn').disabled = disabled;
+}
+
+/* ── steps ── */
+function initSteps(defs) {
+  currentSteps = defs;
+  stepStates = {};
+  defs.forEach(s => stepStates[s.id] = 'pending');
+  document.getElementById('stepList').innerHTML = defs.map(s =>
+    `<div class="step" id="step-${s.id}">
+      <div class="step-icon"><div class="dot"></div></div>
+      <span>${s.label}</span>
+      <span class="step-sub">${s.sub}</span>
+    </div>`
+  ).join('');
+  document.getElementById('stepsPanel').classList.add('visible');
+}
+
+function setStepActive(id) {
+  const activeIdx = currentSteps.findIndex(s => s.id === id);
+  currentSteps.forEach((s, i) => {
+    if (i < activeIdx && stepStates[s.id] !== 'done') setStepDone(s.id);
+  });
+  stepStates[id] = 'active';
+  const el = document.getElementById('step-' + id);
+  if (!el) return;
+  el.className = 'step active';
+  el.querySelector('.step-icon').innerHTML = '<div class="spinner"></div>';
+}
+
+function setStepDone(id) {
+  stepStates[id] = 'done';
+  const el = document.getElementById('step-' + id);
+  if (!el) return;
+  el.className = 'step done';
+  el.querySelector('.step-icon').innerHTML = '<span class="check">✓</span>';
+}
+
+function allDone() { currentSteps.forEach(s => setStepDone(s.id)); }
+
+/* ── result ── */
+function showResult(data) {
+  allDone();
+  setButtons(false);
+
+  document.getElementById('resultPanel').classList.add('visible');
+  document.getElementById('cropEmoji').textContent = EMOJI[data.predicted_crop] || '🌱';
+  document.getElementById('cropName').textContent  = data.predicted_crop;
+
+  const skip = new Set(['predicted_crop', 'agent_response']);
+  const grid = document.getElementById('paramsGrid');
+  grid.innerHTML = '';
+  Object.entries(data).forEach(([k, v]) => {
+    if (skip.has(k)) return;
+    const label = PARAM_LABELS[k] || k;
+    const val   = typeof v === 'number' ? v.toFixed(2) : v;
+    grid.innerHTML += `<div class="param-box">
+      <div class="param-label">${label}</div>
+      <div class="param-value">${val}</div>
+    </div>`;
+  });
+
+  if (data.agent_response) {
+    document.getElementById('agentPlaceholder').style.display = 'none';
+    document.getElementById('agentText').innerHTML = marked.parse(data.agent_response);
+    document.getElementById('rightCol').classList.remove('empty');
+  }
+}
+
+/* ── fetch helper ── */
+async function api(url, body) {
+  let r;
+  try {
+    r = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+  } catch (e) {
+    throw new Error('Cannot reach server — make sure node server.js is running on port 3000');
+  }
+
+  if (!r.ok) {
+    let msg = 'Server error ' + r.status;
+    try { const j = await r.json(); if (j.error) msg = j.error; } catch (_) {}
+    if (r.status === 404) msg = 'Endpoint not found — restart the server with: node server.js';
+    if (r.status === 405) msg = 'Method error — restart the server with: node server.js';
+    throw new Error(msg);
+  }
+
+  return r.json();
+}
+
+/* ── auto mode ── */
+async function autoMode() {
+  resetUI();
+  setButtons(true);
+  initSteps(AUTO_STEPS);
+
+  setStepActive('location');
+  let lat, lon;
+  try {
+    const pos = await new Promise((resolve, reject) => {
+      if (!navigator.geolocation) return reject(new Error('Geolocation not supported by browser'));
+      navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 10000 });
+    });
+    lat = pos.coords.latitude;
+    lon = pos.coords.longitude;
+    setStepDone('location');
+  } catch (err) {
+    showError('Location unavailable: ' + err.message + '. Use Manual Input tab instead.');
+    return;
+  }
+
+  try {
+    setStepActive('soil');
+    const soil = await api('/api/soil', { lat, lon });
+    setStepDone('soil');
+
+    setStepActive('weather');
+    const weather = await api('/api/weather', { lat, lon });
+    setStepDone('weather');
+
+    setStepActive('predict');
+    const pred = await api('/api/predict', { ...soil, ...weather });
+    setStepDone('predict');
+
+    setStepActive('analyze');
+    const explain = await api('/api/explain', { ...soil, ...weather, ...pred });
+
+    showResult({ ...soil, ...weather, ...pred, ...explain });
+  } catch (err) {
+    showError(err.message);
+  }
+}
+
+/* ── manual mode ── */
+async function manualMode() {
+  resetUI();
+  setButtons(true);
+  initSteps(MANUAL_STEPS);
+
+  const inputs = {
+    N:           +document.getElementById('N').value,
+    P:           +document.getElementById('P').value,
+    K:           +document.getElementById('K').value,
+    temperature: +document.getElementById('temp').value,
+    humidity:    +document.getElementById('hum').value,
+    ph:          +document.getElementById('ph').value,
+    rainfall:    +document.getElementById('rain').value,
+  };
+
+  try {
+    setStepActive('predict');
+    const pred = await api('/api/predict', inputs);
+    setStepDone('predict');
+
+    setStepActive('analyze');
+    const explain = await api('/api/explain', { ...inputs, ...pred });
+
+    showResult({ ...inputs, ...pred, ...explain });
+  } catch (err) {
+    showError(err.message);
+  }
+}
+</script>
+</body>
+</html>
