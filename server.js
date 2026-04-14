@@ -71,7 +71,39 @@ app.post('/api/predict', async (req, res) => {
   try {
     await modelReady;
     const { N, P, K, temperature, humidity, ph, rainfall } = req.body;
-    const tensor = new ort.Tensor('float32', new Float32Array([N, P, K, temperature, humidity, ph, rainfall]), [1, 7]);
+    const values = { N, P, K, temperature, humidity, ph, rainfall };
+    const rules = {
+      N: [0, 140],
+      P: [0, 145],
+      K: [0, 205],
+      temperature: [0, 55],
+      humidity: [0, 100],
+      ph: [0, 14],
+      rainfall: [0, 5000],
+    };
+
+    for (const [key, value] of Object.entries(values)) {
+      if (value === undefined || value === null || Number.isNaN(Number(value))) {
+        return res.status(400).json({ error: `Invalid ${key}: numeric value required` });
+      }
+
+      const [min, max] = rules[key];
+      const numeric = Number(value);
+      if (numeric < min || numeric > max) {
+        return res.status(400).json({ error: `Invalid ${key}: expected between ${min} and ${max}` });
+      }
+      values[key] = numeric;
+    }
+
+    const tensor = new ort.Tensor('float32', new Float32Array([
+      values.N,
+      values.P,
+      values.K,
+      values.temperature,
+      values.humidity,
+      values.ph,
+      values.rainfall,
+    ]), [1, 7]);
     const result = await session.run({ float_input: tensor });
     res.json({ predicted_crop: CROP[result.label.data[0]] || 'unknown' });
   } catch (e) { res.status(500).json({ error: e.message }); }
