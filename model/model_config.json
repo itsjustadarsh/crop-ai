@@ -1,5 +1,5 @@
 {
-  "model_type": "RandomForestClassifier",
+  "model_type": "1D CNN (PyTorch) with embedded MinMax+Standard scaling \u2014 ONNX",
   "feature_names": [
     "N",
     "P",
@@ -74,39 +74,48 @@
       0.0,
       5.0,
       5.0,
-      8.825674745,
-      14.25803981,
-      3.504752314,
-      20.21126747
+      8.825675010681152,
+      14.258039474487305,
+      3.5047523975372314,
+      20.211267471313477
     ],
     "minmax_data_max": [
       140.0,
       145.0,
       205.0,
-      43.67549305,
-      99.98187601,
-      9.93509073,
-      298.5601175
+      43.67549133300781,
+      99.98187255859375,
+      9.935091018676758,
+      298.56011962890625
     ],
     "standard_mean": [
-      0.360914857666898,
-      0.3453500579271072,
-      0.21544757484521498,
-      0.48270911779106107,
-      0.6677785248099731,
-      0.46134119040083443,
-      0.297642323213571
+      0.3609864115715027,
+      0.34577232599258423,
+      0.21601828932762146,
+      0.4798476994037628,
+      0.6677374839782715,
+      0.4605795443058014,
+      0.3003103733062744
     ],
     "standard_scale": [
-      0.26099956898100846,
-      0.235385403129206,
-      0.252729579219505,
-      0.14461986139290958,
-      0.2596921816216382,
-      0.12020604001018555,
-      0.19657077615111876
+      0.2645956873893738,
+      0.23509104549884796,
+      0.2528798580169678,
+      0.144037127494812,
+      0.25996750593185425,
+      0.1174422949552536,
+      0.19771449267864227
     ]
   },
-  "model_accuracy": 0.9931818181818182,
-  "model_classes_type": "string"
+  "model_accuracy": null,
+  "model_classes_type": "string",
+  "notes": "Production ONNX artifact metadata only. Current paper benchmark results and research-best model are tracked in model/research_model_config.json and paper/assets/final_study_results.json.",
+  "model_f1_macro": null,
+  "research_reference": {
+    "research_best_model": "Weighted Voting",
+    "research_best_results_path": "paper/assets/final_study_results.json",
+    "research_best_config_path": "model/research_model_config.json",
+    "split_protocol": "stratified holdout, test_size=0.2, random_state=42; winner selected by inner CV"
+  },
+  "cnn_accuracy": 0.995455
 }

@@ -9,6 +9,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const CROP = {
+  1:'rice',2:'maize',3:'jute',4:'cotton',5:'coconut',6:'papaya',7:'orange',
+  8:'apple',9:'muskmelon',10:'watermelon',11:'grapes',12:'mango',13:'banana',
+  14:'pomegranate',15:'lentil',16:'blackgram',17:'mungbean',18:'mothbeans',
+  19:'pigeonpeas',20:'kidneybeans',21:'chickpea',22:'coffee',
+};
+
 // Initialize Groq (with explicit error handling)
 let groq;
 try {
@@ -25,15 +32,8 @@ try {
   console.error('❌ Failed to initialize Groq:', e.message);
 }
 
-const CROP = {
-  1:'rice',2:'maize',3:'jute',4:'cotton',5:'coconut',6:'papaya',7:'orange',
-  8:'apple',9:'muskmelon',10:'watermelon',11:'grapes',12:'mango',13:'banana',
-  14:'pomegranate',15:'lentil',16:'blackgram',17:'mungbean',18:'mothbeans',
-  19:'pigeonpeas',20:'kidneybeans',21:'chickpea',22:'coffee',
-};
-
 let session;
-(async () => {
+const modelReady = (async () => {
   session = await ort.InferenceSession.create('./crop_model.onnx');
   console.log('✅ ONNX model loaded');
 })();
@@ -69,6 +69,7 @@ app.post('/api/weather', async (req, res) => {
 
 app.post('/api/predict', async (req, res) => {
   try {
+    await modelReady;
     const { N, P, K, temperature, humidity, ph, rainfall } = req.body;
     const tensor = new ort.Tensor('float32', new Float32Array([N, P, K, temperature, humidity, ph, rainfall]), [1, 7]);
     const result = await session.run({ float_input: tensor });
