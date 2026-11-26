@@ -408,7 +408,7 @@ def main():
     robustness = repeated_cv_summary(best_factory, X_raw, y_raw)
     payload = {
         "dataset": {
-            "path": str(DATASET_CACHE),
+            "path": "~/" + str(DATASET_CACHE.relative_to(Path.home())),
             "original_samples": int(len(df)),
             "num_classes": int(len(labels_sorted)),
             "features": FEATURES,
@@ -441,7 +441,7 @@ def main():
                 "test_accuracy": round(float(best_row["test_accuracy"]), 6),
                 "test_f1_macro": round(float(best_row["test_f1_macro"]), 6),
                 "generalization_gap": round(float(best_row["generalization_gap"]), 6),
-                "dataset_path": str(DATASET_CACHE),
+                "dataset_path": "~/" + str(DATASET_CACHE.relative_to(Path.home())),
                 "selection_protocol": payload["selection_protocol"],
                 "headline_model_robustness": robustness,
             },

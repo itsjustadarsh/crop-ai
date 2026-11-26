@@ -1,0 +1,40 @@
+# Secrets
+.env
+
+# Dependencies and environments
+node_modules
+venv
+benchmark/.venv/
+model/*venv
+__pycache__/
+*.pyc
+
+# OS and tool junk
+.DS_Store
+catboost_info/
+.claude
+
+# Private or local material (not part of the public repo)
+backup
+archieve/
+report/
+docker-compose.yml
+DEPLOY_EC2_GODADDY.MD
+DEPLOY_EC2_GODADDY.md
+model/
+model/*.pkl
+model/start.sh
+model/main.py
+model/requirements.txt
+
+# Paper source stays private; only the result files behind its numbers are public
+paper/*
+!paper/assets/
+paper/assets/*
+!paper/assets/*.json
+
+# Markdown: only these documents are published
+*.md
+!README.md
+!benchmark/REPRODUCE.md
+!benchmark/legacy/README.md

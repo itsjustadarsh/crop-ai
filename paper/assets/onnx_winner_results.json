@@ -1,6 +1,6 @@
 {
   "dataset": {
-    "path": "/Users/ady/.cache/kagglehub/datasets/atharvaingle/crop-recommendation-dataset/versions/1/Crop_recommendation.csv",
+    "path": "~/.cache/kagglehub/datasets/atharvaingle/crop-recommendation-dataset/versions/1/Crop_recommendation.csv",
     "original_samples": 2200,
     "num_classes": 22,
     "features": [
