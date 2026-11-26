@@ -1,35 +1,13 @@
 {
-  "research_best_model": "Weighted Voting",
+  "research_best_model": "Random Forest",
   "family": "classical_ml",
   "dataset_variant": "raw",
-  "cv_mean_accuracy": 0.99375,
-  "cv_std_accuracy": 0.002126,
+  "cv_mean_accuracy": 0.992046,
+  "cv_std_accuracy": 0.005621,
   "test_accuracy": 0.995455,
   "test_f1_macro": 0.995452,
   "generalization_gap": 0.004545,
-  "finalists": {
-    "top_3_classical": [
-      "Weighted Voting",
-      "Random Forest",
-      "Extra Trees"
-    ],
-    "best_deep_learning": [
-      "1D CNN"
-    ],
-    "best_hybrid": [
-      "Hybrid DL+RF"
-    ],
-    "final_table_order": [
-      "Weighted Voting",
-      "Random Forest",
-      "Extra Trees",
-      "Hybrid DL+RF",
-      "1D CNN"
-    ]
-  },
-  "dataset_path": "/Users/ady/.cache/kagglehub/datasets/atharvaingle/crop-recommendation-dataset/versions/1/Crop_recommendation.csv",
-  "outer_split_seed": 42,
-  "inner_cv_seed": 42,
+  "dataset_path": "~/.cache/kagglehub/datasets/atharvaingle/crop-recommendation-dataset/versions/1/Crop_recommendation.csv",
   "selection_protocol": {
     "outer_split": "stratified holdout, test_size=0.2, random_state=42",
     "inner_selection": "3-fold stratified cross-validation on outer-train only",
@@ -39,17 +17,25 @@
       "cv_mean_f1_macro",
       "smaller_generalization_gap",
       "simpler_model"
+    ],
+    "candidate_pool": [
+      "Random Forest",
+      "Extra Trees",
+      "Gradient Boosting",
+      "SVM (RBF)",
+      "MLP",
+      "Stacking"
     ]
   },
   "headline_model_robustness": {
-    "robustness_cv_mean_accuracy": 0.995455,
-    "robustness_cv_std_accuracy": 0.002033,
+    "robustness_cv_mean_accuracy": 0.994545,
+    "robustness_cv_std_accuracy": 0.002318,
     "robustness_cv_scores": [
-      0.993182,
       0.995455,
+      0.993182,
       0.997727,
-      0.997727,
-      0.993182
+      0.995455,
+      0.990909
     ]
   }
 }

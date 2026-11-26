@@ -1,5 +1,5 @@
 {
-  "model_type": "1D CNN (PyTorch) with embedded MinMax+Standard scaling \u2014 ONNX",
+  "model_type": "Random Forest with embedded MinMax+Standard scaling \u2014 ONNX",
   "feature_names": [
     "N",
     "P",
@@ -11,111 +11,31 @@
   ],
   "num_features": 7,
   "num_classes": 22,
-  "classes": [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22
-  ],
   "crop_mapping": {
-    "1": "rice",
-    "2": "maize",
-    "3": "jute",
-    "4": "cotton",
-    "5": "coconut",
-    "6": "papaya",
-    "7": "orange",
-    "8": "apple",
-    "9": "muskmelon",
-    "10": "watermelon",
-    "11": "grapes",
-    "12": "mango",
-    "13": "banana",
-    "14": "pomegranate",
-    "15": "lentil",
-    "16": "blackgram",
-    "17": "mungbean",
-    "18": "mothbeans",
-    "19": "pigeonpeas",
-    "20": "kidneybeans",
-    "21": "chickpea",
-    "22": "coffee"
+    "apple": "apple",
+    "banana": "banana",
+    "blackgram": "blackgram",
+    "chickpea": "chickpea",
+    "coconut": "coconut",
+    "coffee": "coffee",
+    "cotton": "cotton",
+    "grapes": "grapes",
+    "jute": "jute",
+    "kidneybeans": "kidneybeans",
+    "lentil": "lentil",
+    "maize": "maize",
+    "mango": "mango",
+    "mothbeans": "mothbeans",
+    "mungbean": "mungbean",
+    "muskmelon": "muskmelon",
+    "orange": "orange",
+    "papaya": "papaya",
+    "pigeonpeas": "pigeonpeas",
+    "pomegranate": "pomegranate",
+    "rice": "rice",
+    "watermelon": "watermelon"
   },
-  "training_info": {
-    "original_samples": 2200,
-    "synthetic_samples": 4400,
-    "total_samples": 6600,
-    "augmentation_factor": 3
-  },
-  "scaler_params": {
-    "minmax_feature_range": [
-      0,
-      1
-    ],
-    "minmax_data_min": [
-      0.0,
-      5.0,
-      5.0,
-      8.825675010681152,
-      14.258039474487305,
-      3.5047523975372314,
-      20.211267471313477
-    ],
-    "minmax_data_max": [
-      140.0,
-      145.0,
-      205.0,
-      43.67549133300781,
-      99.98187255859375,
-      9.935091018676758,
-      298.56011962890625
-    ],
-    "standard_mean": [
-      0.3609864115715027,
-      0.34577232599258423,
-      0.21601828932762146,
-      0.4798476994037628,
-      0.6677374839782715,
-      0.4605795443058014,
-      0.3003103733062744
-    ],
-    "standard_scale": [
-      0.2645956873893738,
-      0.23509104549884796,
-      0.2528798580169678,
-      0.144037127494812,
-      0.25996750593185425,
-      0.1174422949552536,
-      0.19771449267864227
-    ]
-  },
-  "model_accuracy": null,
   "model_classes_type": "string",
-  "notes": "Production ONNX artifact metadata only. Current paper benchmark results and research-best model are tracked in model/research_model_config.json and paper/assets/final_study_results.json.",
-  "model_f1_macro": null,
-  "research_reference": {
-    "research_best_model": "Weighted Voting",
-    "research_best_results_path": "paper/assets/final_study_results.json",
-    "research_best_config_path": "model/research_model_config.json",
-    "split_protocol": "stratified holdout, test_size=0.2, random_state=42; winner selected by inner CV"
-  },
-  "cnn_accuracy": 0.995455
+  "research_best_model": "Random Forest",
+  "notes": "This ONNX artifact is the paper winner model and the deployed model."
 }

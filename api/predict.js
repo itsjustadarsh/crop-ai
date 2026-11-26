@@ -44,8 +44,10 @@ module.exports = async (req, res) => {
     const sess = await loadModel();
     const tensor = new ort.Tensor('float32', new Float32Array([N, P, K, temperature, humidity, ph, rainfall]), [1, 7]);
     const result = await sess.run({ float_input: tensor });
-    
-    res.json({ predicted_crop: CROP[result.label.data[0]] || 'unknown' });
+    const rawLabel = result.label.data[0];
+    const predictedCrop = typeof rawLabel === 'string' ? rawLabel : (CROP[rawLabel] || 'unknown');
+
+    res.json({ predicted_crop: predictedCrop });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }

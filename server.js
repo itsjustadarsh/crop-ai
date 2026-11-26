@@ -105,7 +105,9 @@ app.post('/api/predict', async (req, res) => {
       values.rainfall,
     ]), [1, 7]);
     const result = await session.run({ float_input: tensor });
-    res.json({ predicted_crop: CROP[result.label.data[0]] || 'unknown' });
+    const rawLabel = result.label.data[0];
+    const predictedCrop = typeof rawLabel === 'string' ? rawLabel : (CROP[rawLabel] || 'unknown');
+    res.json({ predicted_crop: predictedCrop });
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 

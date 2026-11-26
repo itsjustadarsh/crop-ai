@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Crop AI favicon">
+  <rect width="64" height="64" rx="16" fill="#111315"/>
+  <path d="M32 50V29" fill="none" stroke="#f3f4f6" stroke-width="4" stroke-linecap="round"/>
+  <path d="M32 35c-7.2 0-13-5.8-13-13V12h10c7.2 0 13 5.8 13 13v10H32Z" fill="#6bbf59"/>
+  <path d="M34 41c0-7.2 5.8-13 13-13h5v5c0 7.2-5.8 13-13 13h-5v-5Z" fill="#a7d66d"/>
+  <path d="M24 20c5.7 2.5 9.8 6.9 12 13" fill="none" stroke="#111315" stroke-width="3" stroke-linecap="round"/>
+  <path d="M47 33c-5 1.8-8.4 4.9-10.5 9" fill="none" stroke="#111315" stroke-width="3" stroke-linecap="round"/>
+</svg>
