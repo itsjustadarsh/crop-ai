@@ -1,0 +1,318 @@
+{
+  "models": [
+    "Random Forest",
+    "Extra Trees",
+    "LightGBM",
+    "CatBoost",
+    "XGBoost",
+    "k-NN (k=5)"
+  ],
+  "n_samples": 2200,
+  "samples_with_any_error": 104,
+  "samples_wrong_every_model_every_repeat": [],
+  "samples_wrong_majority_every_repeat": [
+    13,
+    45,
+    65,
+    78,
+    83,
+    98,
+    588,
+    2037,
+    2065
+  ],
+  "oracle_ceiling_accuracy": 1.0,
+  "best_single_model": "Random Forest",
+  "hardest": [
+    {
+      "index": 78,
+      "true": "rice",
+      "errors_by_model": {
+        "Random Forest": 5,
+        "Extra Trees": 4,
+        "LightGBM": 5,
+        "CatBoost": 5,
+        "XGBoost": 3,
+        "k-NN (k=5)": 5
+      },
+      "features": {
+        "N": 77.0,
+        "P": 36.0,
+        "K": 37.0,
+        "temperature": 26.88,
+        "humidity": 81.46,
+        "ph": 6.14,
+        "rainfall": 194.58
+      },
+      "neighbour_labels": [
+        "jute",
+        "rice",
+        "jute",
+        "jute",
+        "rice"
+      ],
+      "neighbours_same_class": 2
+    },
+    {
+      "index": 83,
+      "true": "rice",
+      "errors_by_model": {
+        "Random Forest": 5,
+        "Extra Trees": 5,
+        "LightGBM": 2,
+        "CatBoost": 5,
+        "XGBoost": 4,
+        "k-NN (k=5)": 5
+      },
+      "features": {
+        "N": 67.0,
+        "P": 43.0,
+        "K": 39.0,
+        "temperature": 26.04,
+        "humidity": 84.97,
+        "ph": 6.0,
+        "rainfall": 186.75
+      },
+      "neighbour_labels": [
+        "jute",
+        "rice",
+        "jute",
+        "rice",
+        "jute"
+      ],
+      "neighbours_same_class": 2
+    },
+    {
+      "index": 2037,
+      "true": "jute",
+      "errors_by_model": {
+        "Random Forest": 4,
+        "Extra Trees": 5,
+        "LightGBM": 5,
+        "CatBoost": 5,
+        "XGBoost": 5,
+        "k-NN (k=5)": 0
+      },
+      "features": {
+        "N": 89.0,
+        "P": 52.0,
+        "K": 42.0,
+        "temperature": 23.09,
+        "humidity": 81.45,
+        "ph": 6.14,
+        "rainfall": 196.66
+      },
+      "neighbour_labels": [
+        "rice",
+        "jute",
+        "jute",
+        "jute",
+        "jute"
+      ],
+      "neighbours_same_class": 4
+    },
+    {
+      "index": 2065,
+      "true": "jute",
+      "errors_by_model": {
+        "Random Forest": 3,
+        "Extra Trees": 5,
+        "LightGBM": 4,
+        "CatBoost": 5,
+        "XGBoost": 5,
+        "k-NN (k=5)": 0
+      },
+      "features": {
+        "N": 91.0,
+        "P": 41.0,
+        "K": 37.0,
+        "temperature": 24.49,
+        "humidity": 83.21,
+        "ph": 6.13,
+        "rainfall": 192.23
+      },
+      "neighbour_labels": [
+        "rice",
+        "jute",
+        "jute",
+        "jute",
+        "rice"
+      ],
+      "neighbours_same_class": 3
+    },
+    {
+      "index": 45,
+      "true": "rice",
+      "errors_by_model": {
+        "Random Forest": 5,
+        "Extra Trees": 5,
+        "LightGBM": 2,
+        "CatBoost": 0,
+        "XGBoost": 4,
+        "k-NN (k=5)": 5
+      },
+      "features": {
+        "N": 91.0,
+        "P": 35.0,
+        "K": 38.0,
+        "temperature": 24.9,
+        "humidity": 80.53,
+        "ph": 6.13,
+        "rainfall": 183.68
+      },
+      "neighbour_labels": [
+        "jute",
+        "jute",
+        "jute",
+        "jute",
+        "jute"
+      ],
+      "neighbours_same_class": 0
+    },
+    {
+      "index": 65,
+      "true": "rice",
+      "errors_by_model": {
+        "Random Forest": 5,
+        "Extra Trees": 5,
+        "LightGBM": 2,
+        "CatBoost": 3,
+        "XGBoost": 1,
+        "k-NN (k=5)": 5
+      },
+      "features": {
+        "N": 99.0,
+        "P": 41.0,
+        "K": 36.0,
+        "temperature": 24.46,
+        "humidity": 82.75,
+        "ph": 6.74,
+        "rainfall": 182.56
+      },
+      "neighbour_labels": [
+        "jute",
+        "jute",
+        "jute",
+        "jute",
+        "jute"
+      ],
+      "neighbours_same_class": 0
+    },
+    {
+      "index": 98,
+      "true": "rice",
+      "errors_by_model": {
+        "Random Forest": 5,
+        "Extra Trees": 5,
+        "LightGBM": 1,
+        "CatBoost": 5,
+        "XGBoost": 0,
+        "k-NN (k=5)": 5
+      },
+      "features": {
+        "N": 78.0,
+        "P": 35.0,
+        "K": 44.0,
+        "temperature": 26.54,
+        "humidity": 84.67,
+        "ph": 7.07,
+        "rainfall": 183.62
+      },
+      "neighbour_labels": [
+        "jute",
+        "jute",
+        "jute",
+        "jute",
+        "jute"
+      ],
+      "neighbours_same_class": 0
+    },
+    {
+      "index": 588,
+      "true": "mothbeans",
+      "errors_by_model": {
+        "Random Forest": 5,
+        "Extra Trees": 0,
+        "LightGBM": 3,
+        "CatBoost": 5,
+        "XGBoost": 2,
+        "k-NN (k=5)": 5
+      },
+      "features": {
+        "N": 9.0,
+        "P": 59.0,
+        "K": 25.0,
+        "temperature": 30.39,
+        "humidity": 60.16,
+        "ph": 7.7,
+        "rainfall": 35.37
+      },
+      "neighbour_labels": [
+        "lentil",
+        "lentil",
+        "lentil",
+        "lentil",
+        "lentil"
+      ],
+      "neighbours_same_class": 0
+    },
+    {
+      "index": 13,
+      "true": "rice",
+      "errors_by_model": {
+        "Random Forest": 5,
+        "Extra Trees": 5,
+        "LightGBM": 0,
+        "CatBoost": 3,
+        "XGBoost": 0,
+        "k-NN (k=5)": 5
+      },
+      "features": {
+        "N": 93.0,
+        "P": 56.0,
+        "K": 36.0,
+        "temperature": 24.01,
+        "humidity": 82.06,
+        "ph": 6.98,
+        "rainfall": 185.28
+      },
+      "neighbour_labels": [
+        "jute",
+        "jute",
+        "jute",
+        "jute",
+        "rice"
+      ],
+      "neighbours_same_class": 1
+    },
+    {
+      "index": 838,
+      "true": "lentil",
+      "errors_by_model": {
+        "Random Forest": 1,
+        "Extra Trees": 0,
+        "LightGBM": 5,
+        "CatBoost": 4,
+        "XGBoost": 5,
+        "k-NN (k=5)": 1
+      },
+      "features": {
+        "N": 31.0,
+        "P": 58.0,
+        "K": 15.0,
+        "temperature": 28.32,
+        "humidity": 60.19,
+        "ph": 6.17,
+        "rainfall": 45.37
+      },
+      "neighbour_labels": [
+        "lentil",
+        "lentil",
+        "mothbeans",
+        "mothbeans",
+        "blackgram"
+      ],
+      "neighbours_same_class": 2
+    }
+  ]
+}

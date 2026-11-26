@@ -1,0 +1,198 @@
+{
+  "locked": {
+    "LightGBM (tuned)": {
+      "cv_mean": 0.9965918759314926,
+      "cv_std": 0.001389778553059583,
+      "test_acc": 0.9931818181818182,
+      "test_correct": 437,
+      "fit_seconds": 10.97850779199507,
+      "test_errors": [
+        [
+          "lentil",
+          "mothbeans"
+        ],
+        [
+          "rice",
+          "jute"
+        ],
+        [
+          "lentil",
+          "mothbeans"
+        ]
+      ],
+      "params": {
+        "n": 400,
+        "lr": 0.07440084371797706,
+        "leaves": 63,
+        "mcs": 8,
+        "sub": 0.8708817658975764,
+        "col": 0.6094059102390395,
+        "l2": 0.7775376212193117
+      }
+    },
+    "CatBoost (tuned)": {
+      "cv_mean": 0.9903415488794955,
+      "cv_std": 0.0028936320328884226,
+      "test_acc": 0.9977272727272727,
+      "test_correct": 439,
+      "fit_seconds": 2.8128293329500593,
+      "test_errors": [
+        [
+          "rice",
+          "jute"
+        ]
+      ],
+      "params": {
+        "n": 400,
+        "lr": 0.26781540913060875,
+        "depth": 7,
+        "l2": 3.968793330444372
+      }
+    },
+    "XGBoost (tuned)": {
+      "cv_mean": 0.9926129855631981,
+      "cv_std": 0.0016095853052303876,
+      "test_acc": 0.9931818181818182,
+      "test_correct": 437,
+      "fit_seconds": 0.3059879999491386,
+      "test_errors": [
+        [
+          "lentil",
+          "mothbeans"
+        ],
+        [
+          "pigeonpeas",
+          "mothbeans"
+        ],
+        [
+          "rice",
+          "jute"
+        ]
+      ],
+      "params": {
+        "n": 200,
+        "depth": 6,
+        "lr": 0.037931767826668475,
+        "sub": 0.8756623291939449,
+        "col": 0.6850393674946563
+      }
+    },
+    "k-NN (tuned)": {
+      "cv_mean": 0.9659080998424336,
+      "cv_std": 0.009125014263720935,
+      "test_acc": 0.975,
+      "test_correct": 429,
+      "fit_seconds": 0.0014224170008674264,
+      "test_errors": [
+        [
+          "orange",
+          "pomegranate"
+        ],
+        [
+          "mothbeans",
+          "mango"
+        ],
+        [
+          "mothbeans",
+          "lentil"
+        ],
+        [
+          "rice",
+          "jute"
+        ],
+        [
+          "lentil",
+          "blackgram"
+        ],
+        [
+          "rice",
+          "jute"
+        ],
+        [
+          "pigeonpeas",
+          "kidneybeans"
+        ],
+        [
+          "rice",
+          "jute"
+        ],
+        [
+          "lentil",
+          "mothbeans"
+        ],
+        [
+          "mothbeans",
+          "blackgram"
+        ],
+        [
+          "maize",
+          "cotton"
+        ]
+      ],
+      "params": {
+        "k": 3,
+        "w": "distance"
+      }
+    },
+    "Super-stack": {
+      "cv_mean": 0.9965909068885388,
+      "cv_std": 2.7408673755890346e-06,
+      "test_acc": 0.9977272727272727,
+      "test_correct": 439,
+      "fit_seconds": 93.82946395798353,
+      "test_errors": [
+        [
+          "lentil",
+          "mothbeans"
+        ]
+      ],
+      "base_learners": [
+        "LightGBM",
+        "Random Forest",
+        "Extra Trees",
+        "XGBoost",
+        "CatBoost"
+      ],
+      "feature_engineering": false
+    }
+  },
+  "feature_engineering": {
+    "inner_cv": {
+      "Random Forest": {
+        "raw_cv": 0.9931827828200314,
+        "engineered_cv": 0.9892048614946907
+      },
+      "Extra Trees": {
+        "raw_cv": 0.9926139546061519,
+        "engineered_cv": 0.9903415488794955
+      },
+      "LightGBM": {
+        "raw_cv": 0.9965918759314926,
+        "engineered_cv": 0.9892048614946907
+      },
+      "XGBoost": {
+        "raw_cv": 0.9926129855631981,
+        "engineered_cv": 0.9840921908704526
+      }
+    },
+    "adopted": false
+  },
+  "superstack_selection": {
+    "inner_cv_by_model": {
+      "LightGBM": 0.9965918759314926,
+      "CatBoost": 0.9903415488794955,
+      "XGBoost": 0.9926129855631981,
+      "k-NN": 0.9659080998424336,
+      "Random Forest": 0.9931827828200314,
+      "Extra Trees": 0.9926139546061519,
+      "SVM (RBF)": 0.9795444722882786
+    },
+    "chosen": [
+      "LightGBM",
+      "Random Forest",
+      "Extra Trees",
+      "XGBoost",
+      "CatBoost"
+    ]
+  }
+}

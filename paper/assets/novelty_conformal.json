@@ -1,0 +1,91 @@
+{
+  "method": "split-conformal adaptive sets (APS, U=0), RF-700, calibration = 5-fold OOF per outer-train fold, 5x10 CV",
+  "top1_accuracy": 0.9952727272727272,
+  "top2_accuracy": 1.0,
+  "by_alpha": {
+    "0.05": {
+      "cov": 0.9952727272727272,
+      "size": 1.0,
+      "single": 1.0
+    },
+    "0.02": {
+      "cov": 0.9952727272727272,
+      "size": 1.0,
+      "single": 1.0
+    },
+    "0.01": {
+      "cov": 0.9952727272727272,
+      "size": 1.0,
+      "single": 1.0
+    },
+    "0.005": {
+      "cov": 0.9960909090909091,
+      "size": 1.0024545454545455,
+      "single": 0.9975454545454545
+    },
+    "0.002": {
+      "cov": 0.9996363636363637,
+      "size": 1.0200909090909094,
+      "single": 0.9802727272727273
+    }
+  },
+  "multi_sets_alpha_0.002": [
+    [
+      [
+        "jute",
+        "rice"
+      ],
+      100
+    ],
+    [
+      [
+        "lentil",
+        "mothbeans"
+      ],
+      42
+    ],
+    [
+      [
+        "blackgram",
+        "mothbeans"
+      ],
+      19
+    ],
+    [
+      [
+        "cotton",
+        "maize"
+      ],
+      9
+    ],
+    [
+      [
+        "coffee",
+        "jute"
+      ],
+      6
+    ],
+    [
+      [
+        "banana",
+        "papaya"
+      ],
+      6
+    ],
+    [
+      [
+        "mango",
+        "pigeonpeas"
+      ],
+      6
+    ],
+    [
+      [
+        "blackgram",
+        "pigeonpeas"
+      ],
+      5
+    ]
+  ],
+  "multi_set_count_alpha_0.002": 217
+}

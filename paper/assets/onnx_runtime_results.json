@@ -1,0 +1,92 @@
+{
+  "benchmark_model": "Random Forest (700 trees) + MinMax + Standard scaling, single pipeline",
+  "environment": {
+    "cpu": "Apple M5",
+    "os": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "python": "3.14.2",
+    "threads": 1,
+    "scikit_learn": "1.8.0",
+    "onnxruntime": "1.24.4",
+    "skl2onnx": "1.20.0",
+    "onnx": "1.20.1",
+    "numpy": "2.4.2",
+    "shap": "0.51.0",
+    "lime": "0.2.0.1"
+  },
+  "repetitions": {
+    "warmup": 50,
+    "load": 50,
+    "single": 2000,
+    "batch": 100,
+    "batch_size": 1000
+  },
+  "load_ms": {
+    "pkl": [
+      8.009796598926187,
+      4.185425733849114,
+      6.65191700682044
+    ],
+    "onnx": [
+      60.60767175396904,
+      4.117345473018747,
+      59.78752099326812
+    ]
+  },
+  "single_ms": {
+    "pkl": [
+      13.089909569360316,
+      0.6713116033904125,
+      13.023042032727972
+    ],
+    "onnx": [
+      0.05422928754705936,
+      0.013732696808766784,
+      0.05224999040365219
+    ]
+  },
+  "batch_1000_ms": {
+    "pkl": [
+      40.12114240846131,
+      0.2643141108441418,
+      40.07077048299834
+    ],
+    "onnx": [
+      30.888746228301898,
+      1.5424927796828745,
+      30.640707991551608
+    ]
+  },
+  "note_ms_tuple": "(mean, std, median)",
+  "speedup": {
+    "load": 0.1321581305984031,
+    "single": 241.38081397438773,
+    "batch_1000": 1.2988919042528246
+  },
+  "agreement_test_rows": {
+    "agree": 440,
+    "n": 440
+  },
+  "rf_test_accuracy": 0.9954545454545455,
+  "file_size_bytes": {
+    "pkl": 25650496,
+    "onnx": 17434054
+  },
+  "deployed_check": {
+    "deployed_vs_research_agreement": 440,
+    "deployed_test_accuracy": 0.9954545454545455,
+    "deployed_equals_runtime_rf_file": false
+  },
+  "stacking_sklearn": {
+    "single_ms": [
+      30.776512520737015,
+      2.024559016913269,
+      30.565124994609505
+    ],
+    "batch_1000_ms": [
+      136.40933755086735,
+      0.9630014137633185,
+      136.11210449016653
+    ],
+    "test_accuracy": 0.9977272727272727
+  }
+}

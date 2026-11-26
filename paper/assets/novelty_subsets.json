@@ -1,0 +1,200 @@
+{
+  "Climate (T, H, R)": {
+    "features": [
+      "temperature",
+      "humidity",
+      "rainfall"
+    ],
+    "mean": 0.9217272727272727,
+    "std": 0.01763472344762968,
+    "top_confusions": [
+      [
+        "pomegranate->apple",
+        82
+      ],
+      [
+        "orange->apple",
+        65
+      ],
+      [
+        "orange->pomegranate",
+        61
+      ],
+      [
+        "mothbeans->blackgram",
+        60
+      ],
+      [
+        "papaya->coconut",
+        55
+      ]
+    ]
+  },
+  "Climate + pH": {
+    "features": [
+      "temperature",
+      "humidity",
+      "rainfall",
+      "ph"
+    ],
+    "mean": 0.9638181818181819,
+    "std": 0.011243363515447502,
+    "top_confusions": [
+      [
+        "pomegranate->apple",
+        45
+      ],
+      [
+        "rice->jute",
+        33
+      ],
+      [
+        "orange->pomegranate",
+        28
+      ],
+      [
+        "mothbeans->lentil",
+        27
+      ],
+      [
+        "apple->pomegranate",
+        23
+      ]
+    ]
+  },
+  "Soil (N, P, K, pH)": {
+    "features": [
+      "N",
+      "P",
+      "K",
+      "ph"
+    ],
+    "mean": 0.7941818181818182,
+    "std": 0.019371103980452112,
+    "top_confusions": [
+      [
+        "watermelon->muskmelon",
+        242
+      ],
+      [
+        "apple->grapes",
+        232
+      ],
+      [
+        "grapes->apple",
+        222
+      ],
+      [
+        "muskmelon->watermelon",
+        213
+      ],
+      [
+        "rice->jute",
+        197
+      ]
+    ]
+  },
+  "Climate + N, P, K": {
+    "features": [
+      "N",
+      "P",
+      "K",
+      "temperature",
+      "humidity",
+      "rainfall"
+    ],
+    "mean": 0.9930000000000001,
+    "std": 0.00428431697016298,
+    "top_confusions": [
+      [
+        "rice->jute",
+        38
+      ],
+      [
+        "jute->rice",
+        19
+      ],
+      [
+        "mothbeans->blackgram",
+        5
+      ],
+      [
+        "blackgram->maize",
+        5
+      ],
+      [
+        "mothbeans->lentil",
+        4
+      ]
+    ]
+  },
+  "All except rainfall": {
+    "features": [
+      "N",
+      "P",
+      "K",
+      "temperature",
+      "humidity",
+      "ph"
+    ],
+    "mean": 0.968909090909091,
+    "std": 0.011619305679033066,
+    "top_confusions": [
+      [
+        "jute->rice",
+        85
+      ],
+      [
+        "rice->jute",
+        62
+      ],
+      [
+        "lentil->blackgram",
+        56
+      ],
+      [
+        "blackgram->lentil",
+        33
+      ],
+      [
+        "mothbeans->pigeonpeas",
+        30
+      ]
+    ]
+  },
+  "All seven": {
+    "features": [
+      "N",
+      "P",
+      "K",
+      "temperature",
+      "humidity",
+      "ph",
+      "rainfall"
+    ],
+    "mean": 0.9952727272727272,
+    "std": 0.003631815337352386,
+    "top_confusions": [
+      [
+        "rice->jute",
+        33
+      ],
+      [
+        "jute->rice",
+        7
+      ],
+      [
+        "mothbeans->lentil",
+        5
+      ],
+      [
+        "blackgram->maize",
+        5
+      ],
+      [
+        "maize->cotton",
+        1
+      ]
+    ]
+  }
+}

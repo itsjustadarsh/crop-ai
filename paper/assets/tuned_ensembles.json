@@ -1,0 +1,82 @@
+{
+  "protocol": {
+    "objective": "mean inner 3-fold stratified CV accuracy on outer-train (1,760 rows)",
+    "sampler": "TPE, seed=42",
+    "n_trials": 20,
+    "test_usage": "outer test (440 rows) evaluated once after tuning"
+  },
+  "results": [
+    {
+      "model_name": "Stacking (LR meta, tuned)",
+      "best_params": {
+        "rf_n": 500,
+        "et_n": 1100,
+        "svc_C": 14.489390441483415,
+        "mlp_h": [
+          128,
+          64
+        ],
+        "meta_C": 99.32039030210433,
+        "passthrough": false
+      },
+      "cv_mean_accuracy": 0.9948863603328082,
+      "cv_std_accuracy": 0.004172897668890267,
+      "cv_mean_f1_macro": 0.9948851512467697,
+      "test_accuracy": 0.9977272727272727,
+      "test_f1_macro": 0.997725851384388,
+      "test_correct": 439,
+      "test_n": 440,
+      "fivefold_full_mean": 0.9954545454545454,
+      "fivefold_full_std": 0.0020327890704543426,
+      "tuning_seconds": 218.56184041697998
+    },
+    {
+      "model_name": "Stacking (RF meta, tuned)",
+      "best_params": {
+        "rf_n": 500,
+        "et_n": 1300,
+        "xgb_n": 300,
+        "xgb_depth": 5,
+        "xgb_lr": 0.030515616964102342,
+        "svc_C": 7.978542347074176,
+        "meta_n": 100,
+        "meta_depth": 15
+      },
+      "cv_mean_accuracy": 0.9948863603328082,
+      "cv_std_accuracy": 0.0027819334670153716,
+      "cv_mean_f1_macro": 0.9948631606587414,
+      "test_accuracy": 0.9954545454545455,
+      "test_f1_macro": 0.9954517027687758,
+      "test_correct": 438,
+      "test_n": 440,
+      "fivefold_full_mean": 0.9954545454545455,
+      "fivefold_full_std": 0.001437398936440164,
+      "tuning_seconds": 189.33279000001494
+    },
+    {
+      "model_name": "Soft Voting (tuned)",
+      "best_params": {
+        "rf_n": 900,
+        "et_n": 1300,
+        "xgb_n": 300,
+        "xgb_depth": 5,
+        "xgb_lr": 0.09327970795313997,
+        "svc_C": 95.9180580554204,
+        "w_rf": 3,
+        "w_et": 3,
+        "w_xgb": 1,
+        "w_svc": 1
+      },
+      "cv_mean_accuracy": 0.9943175321189287,
+      "cv_std_accuracy": 0.0028970501404673005,
+      "cv_mean_f1_macro": 0.9943088753282815,
+      "test_accuracy": 0.9954545454545455,
+      "test_f1_macro": 0.9954517027687758,
+      "test_correct": 438,
+      "test_n": 440,
+      "fivefold_full_mean": 0.9949999999999999,
+      "fivefold_full_std": 0.002226808857075604,
+      "tuning_seconds": 78.39642412500689
+    }
+  ]
+}

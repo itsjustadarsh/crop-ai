@@ -1,0 +1,20 @@
+{
+  "dataset": "Kaggle Crop Recommendation (2,200 rows, 22 crops x 100, 7 features)",
+  "verified": [
+    {"key": "shastri2025", "doi": "10.1038/s41598-025-07003-8", "model": "Gradient Boosting", "accuracy": 99.27,
+     "protocol": "not stated in source read", "verified_from": "indexed abstract (BaDAP record)"},
+    {"key": "prity2024", "doi": "10.1007/s44230-024-00081-3", "model": "Random Forest", "accuracy": 99.31,
+     "protocol": "held-out test (ratio not in source read)", "verified_from": "publisher abstract snippet"},
+    {"key": "alam2025", "doi": "10.1016/j.rineng.2025.105505", "model": "Ensemble (LR, NB, KNN, DT, RF, XGB)", "accuracy": 99.54,
+     "protocol": "80:20 random split", "test_n": 440, "verified_from": "full text (UTS open-access PDF)"},
+    {"key": "sornin2026", "doi": "10.12720/jait.17.1.190-202", "model": "XGBoost / LightGBM", "accuracy": 99.77,
+     "protocol": "not stated in abstract", "verified_from": "publisher abstract page (jait.us)"}
+  ],
+  "unverified_candidates_excluded": [
+    {"ref": "Gunasekaran et al., Sensors 25(19):6243, 2025, doi 10.3390/s25196243", "claimed": "99.50% (stacked PINN)", "reason": "publisher and PMC pages blocked automated access"},
+    {"ref": "Scientific Reports 2025, doi 10.1038/s41598-025-09640-5", "claimed": "99.53% (stacking)", "reason": "PMC blocked; dataset identity unconfirmed"},
+    {"ref": "ECSA-11 2024, doi 10.3390/ecsa-11-20366", "claimed": "99.43% (Optuna stack)", "reason": "MDPI 403"},
+    {"ref": "IEEE 2026, ieeexplore 11484857", "claimed": "99.5% (Naive Bayes)", "reason": "IEEE blocked"},
+    {"ref": "Stracqualursi, JABES 2025, doi 10.1007/s13253-025-00694-6", "claimed": "99.8%", "reason": "text unreadable; may be Dey 2024's figure and/or a different Kaggle upload"}
+  ]
+}

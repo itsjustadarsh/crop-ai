@@ -1,0 +1,22 @@
+{
+  "within_class_mean_abs_r": 0.07546231913603028,
+  "within_class_max_abs_r": 0.289790633889291,
+  "share_pairs_significant_p05": 0.04329004329004329,
+  "expected_if_independent": 0.05,
+  "n_pairs": 462,
+  "global_mean_abs_r": 0.14136267016829646,
+  "global_PK_r": 0.7362322172446623,
+  "per_class_feature_uniform_not_rejected": 141,
+  "per_class_feature_normal_not_rejected": 0,
+  "per_class_feature_total": 154,
+  "exact_duplicate_rows": 0,
+  "integer_valued": {
+    "N": true,
+    "P": true,
+    "K": true,
+    "temperature": false,
+    "humidity": false,
+    "ph": false,
+    "rainfall": false
+  }
+}
